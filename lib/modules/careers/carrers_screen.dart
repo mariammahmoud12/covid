@@ -32,12 +32,12 @@ class _CareersScreenState extends State<CareersScreen> {
             color: Colors.white,
           ),
         ),
-        leading: const Padding(
-          padding: EdgeInsets.only(left: 6.0,),
-          child: Image(
-            image: AssetImage('assets/icons/logo.png'),
-          ),
-        ),
+        // leading: const Padding(
+        //   padding: EdgeInsets.only(left: 6.0,),
+        //   // child: Image(
+        //   //   image: AssetImage('assets/icons/logo.png'),
+        //   // ),
+        // ),
         actions: [
           IconButton(
             onPressed: ()
@@ -55,15 +55,15 @@ class _CareersScreenState extends State<CareersScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                child: Image(
-                  image: AssetImage(
-                      'assets/icons/careers_1.png'
-                  ),
-                ),
-                width: double.infinity,
-                height: 250.0,
-              ),
+              // Container(
+              //   child: Image(
+              //     image: AssetImage(
+              //         'assets/icons/careers_1.png'
+              //     ),
+              //   ),
+              //   width: double.infinity,
+              //   height: 250.0,
+              // ),
               SizedBox(
                 height: 20.0,
               ),

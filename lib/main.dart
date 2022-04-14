@@ -7,7 +7,6 @@ import 'modules/sign_up_screen/sign_up_screen.dart';
 void main() {
   runApp(const MyApp());
 }
-var goldColor = Color(0xffffb830);
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -18,7 +17,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.lime,
+        primarySwatch: Colors.teal,
       ),
       home: SplashScreen(),
       debugShowCheckedModeBanner: false,

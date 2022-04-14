@@ -1,9 +1,7 @@
-import 'dart:ui';
 import 'package:covid19/modules/sign_up_screen/sign_up_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:covid19/shared/components/components.dart';
-
-import '../careers/carrers_screen.dart';
+import '../home_screen/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -13,171 +11,217 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  var userController = TextEditingController();
 
+  var emailController = TextEditingController();
   var passwordController = TextEditingController();
 
   bool isRemember = false;
 
-  // var blueColor = Color(0xff3db2ff);
+  var FormKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar:  AppBar(
-        backgroundColor: blueColor,
-        elevation: 0.0,
-        title: const Text(
-            'Covid',
+        backgroundColor: Colors.white,
+        elevation: 1.0,
+        title: Text(
+            'LOGIN',
           style: TextStyle(
-            color: Colors.white,
-            fontSize: 25.0,
+            color: DarkBlueColor,
+            fontSize: 27.0,
           ),
         ),
-        leading: const Padding(
-          padding: EdgeInsets.only(left: 6.0,),
-          child: Image(
-            image: AssetImage('assets/icons/logo.png'),
-          ),
+        centerTitle: true,
+        leading: IconButton(
+          onPressed: ()
+          {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back_ios , color: DarkBlueColor,),
         ),
-        actions: [
-          IconButton(
-            onPressed: ()
-            {
-              Navigator.push(context, MaterialPageRoute(builder: (context)=> CareersScreen()));
-            },
-            icon: const Icon(Icons.menu , size: 30.0,color: Colors.white,),
-          ),
-        ],
       ),
-      backgroundColor: blueColor,
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                child: Image(
-                  image: AssetImage(
-                      'assets/icons/login_1.png'
-                  ),
-                ),
-                width: double.infinity,
-                height: 250.0,
-              ),
-              SizedBox(
-                height: 20.0,
-              ),
-              Text(
-                'LOGIN',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 30.0,
-                  decoration: TextDecoration.underline,
-                ),
-              ),
-              SizedBox(
-                height: 20.0,
-              ),
-              TextFormField(
-                controller: userController,
-                decoration: InputDecoration(
-                  labelText: 'username',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              SizedBox(
-                height: 15.0,
-              ),
-              TextFormField(
-                controller: passwordController,
-                obscureText: true,
-                decoration: InputDecoration(
-                  labelText: 'password',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              SizedBox(
-                height: 10.0,
-              ),
-              Row(
-                children: [
-                  IconButton(
-                    onPressed: ()
-                    {
-                      setState(() {
-                        isRemember = !isRemember;
-                      });
-                    },
-                    icon: isRemember ? Icon(Icons.check_circle) : Icon(Icons.check_circle_outline),
-                  ),
-                  SizedBox(
-                    width: 10.0,
-                  ),
-                  Text(
-                    'Remember me',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 17.0
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 10.0,
-              ),
-              Container(
-                height: 50.0,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    color: indigoColor,
-                    borderRadius: BorderRadius.circular(35.0)
-                ),
-                clipBehavior: Clip.antiAliasWithSaveLayer,
-                child: MaterialButton(
-                  onPressed: (){ },
-                  child: Text(
-                    'LOGIN',
-                    style: TextStyle(
-                        color: goldColor,
-                        fontSize: 20.0
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 10.0,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    'Don\'t have an account?',
-                    style: TextStyle(
-                      color: Colors.white,
-                        fontSize: 15.0
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=> SignUpScreen()));
-                    },
-                    child: Text(
-                      'Sign Up',
-                      style: TextStyle(
-                        color:indigoColor,
-                          fontSize: 18.0,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 20.0,
-              ),
-            ],
+      backgroundColor: Colors.white,
+      body: Stack(
+        alignment: AlignmentDirectional.bottomStart,
+        children: [
+          Image(
+            image: AssetImage('assets/icons/Component3.png'),
           ),
-        ),
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Container(
+              height: 75.0,
+              alignment: AlignmentDirectional.bottomCenter,
+              child: Image(
+                image: AssetImage(
+                  'assets/icons/Component2.png',
+                ),
+              ),
+            ),
+          ),
+          Center(
+            child: Padding(
+              padding: EdgeInsets.all(20.0),
+              child:SingleChildScrollView(
+                child: Form(
+                  key: FormKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      DefaultFormFeild(
+                          controller: emailController,
+                          type: TextInputType.emailAddress,
+                          label: 'Email Address',
+                          prefix: Icons.email_outlined,
+                          validate: (String? value) {
+                            if (value!.isEmpty) {
+                              return 'Email Address must not be empty';
+                            }
+                            return null;
+                          }
+                      ),
+                      SizedBox(
+                        height: 20.0,
+                      ),
+                      DefaultFormFeild(
+                          controller: passwordController,
+                          type: TextInputType.visiblePassword,
+                          label: 'Password',
+                          prefix: Icons.lock,
+                          validate: (String? value) {
+                            if (value!.isEmpty) {
+                              return 'Password must not be empty';
+                            }
+                            return null;
+                          }
+                      ),
+                      SizedBox(
+                        height: 20.0,
+                      ),
+                      TextButton(
+                        onPressed: (){
+                         // Navigator.push(context, MaterialPageRoute(builder: (context)=> SignUpScreen()));
+                        },
+                        child: Center(
+                          child: Text(
+                            'Forget Password?',
+                            style: TextStyle(
+                              color:DarkBlueColor,
+                              fontSize: 22.0,
+                            ),
+                          ),
+                        ),
+                      ),
+                      // Row(
+                      //   children: [
+                      //     IconButton(
+                      //       onPressed: ()
+                      //       {
+                      //         setState(() {
+                      //           isRemember = !isRemember;
+                      //         });
+                      //       },
+                      //       icon: isRemember ? Icon(Icons.check_circle) : Icon(Icons.check_circle_outline),
+                      //     ),
+                      //     SizedBox(
+                      //       width: 10.0,
+                      //     ),
+                      //     Text(
+                      //       'Remember me',
+                      //       style: TextStyle(
+                      //         color: DarkBlueColor,
+                      //         fontSize: 20.0
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
+                      SizedBox(
+                        height: 20.0,
+                      ),
+                      Container(
+                        height: 50.0,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            color: TealColor,
+                            borderRadius: BorderRadius.circular(6.0)
+                        ),
+                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                        child: MaterialButton(
+                          onPressed: ()
+                          {
+                            if(FormKey.currentState!.validate())
+                              {
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=> HomeScreen()));
+                              }
+                          },
+                          child: Text(
+                            'LOGIN',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20.0
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20.0,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Don\'t have an account?',
+                            style: TextStyle(
+                              color:LightGreyColor,
+                                fontSize: 20.0
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=> SignUpScreen()));
+                            },
+                            child: Text(
+                              'Sign Up',
+                              style: TextStyle(
+                                color:DarkBlueColor,
+                                  fontSize: 22.0,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      // SizedBox(
+                      //   height: 20.0,
+                      // ),
+                      // Stack(
+                      //   children: [
+                      //     Image(
+                      //       image: AssetImage('assets/icons/Component3.png'),
+                      //     )
+                      //   ],
+                      // ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+          // Padding(
+          //   padding: const EdgeInsets.all(20.0),
+          //   child: Container(
+          //     height: 75.0,
+          //     alignment: AlignmentDirectional.bottomCenter,
+          //     child: Image(
+          //       image: AssetImage(
+          //         'assets/icons/Component2.png',
+          //       ),
+          //     ),
+          //   ),
+          // ),
+        ],
       ),
     );
   }
