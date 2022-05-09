@@ -1,7 +1,8 @@
 import 'package:covid19/modules/sign_up_screen/sign_up_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:covid19/shared/components/components.dart';
-import '../home_screen/home_screen.dart';
+import '../../layouts/home_layout/home_layout.dart';
+import '../../shared/components/components.dart';
+import '../forget_passowrd_screen/forget_password_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -14,8 +15,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
-
-  bool isRemember = false;
 
   var FormKey = GlobalKey<FormState>();
 
@@ -43,21 +42,11 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
       backgroundColor: Colors.white,
       body: Stack(
-        alignment: AlignmentDirectional.bottomStart,
+        alignment: AlignmentDirectional.topStart,
         children: [
           Image(
-            image: AssetImage('assets/icons/Component3.png'),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Container(
-              height: 75.0,
-              alignment: AlignmentDirectional.bottomCenter,
-              child: Image(
-                image: AssetImage(
-                  'assets/icons/Component2.png',
-                ),
-              ),
+            image: AssetImage(
+              'assets/icons/Component1.png',
             ),
           ),
           Center(
@@ -71,6 +60,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.max,
                     children: [
+                      SizedBox(
+                        height: 40.0,
+                      ),
                       DefaultFormFeild(
                           controller: emailController,
                           type: TextInputType.emailAddress,
@@ -103,7 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       TextButton(
                         onPressed: (){
-                         // Navigator.push(context, MaterialPageRoute(builder: (context)=> SignUpScreen()));
+                          navigator(context, ForgetPasswordScreen());
                         },
                         child: Center(
                           child: Text(
@@ -115,29 +107,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                       ),
-                      // Row(
-                      //   children: [
-                      //     IconButton(
-                      //       onPressed: ()
-                      //       {
-                      //         setState(() {
-                      //           isRemember = !isRemember;
-                      //         });
-                      //       },
-                      //       icon: isRemember ? Icon(Icons.check_circle) : Icon(Icons.check_circle_outline),
-                      //     ),
-                      //     SizedBox(
-                      //       width: 10.0,
-                      //     ),
-                      //     Text(
-                      //       'Remember me',
-                      //       style: TextStyle(
-                      //         color: DarkBlueColor,
-                      //         fontSize: 20.0
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
                       SizedBox(
                         height: 20.0,
                       ),
@@ -154,7 +123,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           {
                             if(FormKey.currentState!.validate())
                               {
-                                Navigator.push(context, MaterialPageRoute(builder: (context)=> HomeScreen()));
+                                navigator(context, HomeLayout());
                               }
                           },
                           child: Text(
@@ -181,7 +150,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           TextButton(
                             onPressed: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=> SignUpScreen()));
+                              navigator(context, SignUpScreen());
                             },
                             child: Text(
                               'Sign Up',
@@ -193,34 +162,27 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ],
                       ),
-                      // SizedBox(
-                      //   height: 20.0,
-                      // ),
-                      // Stack(
-                      //   children: [
-                      //     Image(
-                      //       image: AssetImage('assets/icons/Component3.png'),
-                      //     )
-                      //   ],
-                      // ),
+                      SizedBox(
+                        height: 40.0,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Container(
+                          height: 75.0,
+                          alignment: AlignmentDirectional.bottomCenter,
+                          child: Image(
+                            image: AssetImage(
+                              'assets/icons/Component2.png',
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
               ),
             ),
           ),
-          // Padding(
-          //   padding: const EdgeInsets.all(20.0),
-          //   child: Container(
-          //     height: 75.0,
-          //     alignment: AlignmentDirectional.bottomCenter,
-          //     child: Image(
-          //       image: AssetImage(
-          //         'assets/icons/Component2.png',
-          //       ),
-          //     ),
-          //   ),
-          // ),
         ],
       ),
     );

@@ -1,8 +1,13 @@
 import 'package:covid19/shared/components/components.dart';
 import 'package:flutter/material.dart';
 
+import '../doctors_screen/doctors_screen.dart';
+import '../hospitals_screen/hospitals_screen.dart';
+import '../medicine_reminder_screen/medicine_reminder_screen.dart';
 import '../messenger_screen/messenger_screen.dart';
+import '../scan_screen/scan_screen.dart';
 import '../setting_screen/setting_screen.dart';
+import '../symptoms_screen/symptoms_screen.dart';
 import '../user_profile_screen/user_profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -18,51 +23,26 @@ class _HomeScreenState extends State<HomeScreen> {
 
   List<Widget> screens =
   [
-    HomeScreen(),
-    SettingScreen(),
-    MessengerScreen(),
-    UserProfileScreen()
+    const HomeScreen(),
+    const MessengerScreen(),
+    const UserProfileScreen(),
+    const SettingScreen(),
   ];
 
   List<String> titles =
   [
     'Home',
-    'Settings',
     'Messages',
     'Profile',
+    'Settings',
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:  AppBar(
-        backgroundColor: Colors.white,
-        elevation: 1.0,
-        title: Text(
-          '${titles[currentIndex]}',
-          style: TextStyle(
-            color: DarkBlueColor,
-            fontSize: 27.0,
-          ),
-        ),
-        centerTitle: true,
-        leading: IconButton(
-          onPressed: ()
-          {
-            Navigator.pop(context);
-          },
-          icon: Icon(Icons.arrow_back_ios , color: DarkBlueColor,),
-        ),
-        actions: [
-          CircleAvatar(
-            backgroundImage: AssetImage('assets/icons/girl.jpg'),
-            radius: 22.0,
-            ),
-        ],
-      ),
       backgroundColor: Colors.white,
-      body: currentIndex == 0 ? Padding(
-        padding:EdgeInsets.only(left: 20.0,top: 20.0,right: 20.0),
+      body:Padding(
+        padding:const EdgeInsets.only(left: 20.0,top: 20.0,right: 20.0),
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -70,169 +50,179 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Expanded(
-                    child: Container(
-                      child: Column(
-                        children: [
-                          Image(
-                            image: AssetImage('assets/icons/Doctor1.png'),
-                            width: double.infinity,
-                          ),
-                          Text(
-                            'Doctors',
-                            style: TextStyle(
-                                color: DarkBlueColor,
-                                fontSize: 30.0
+                    child: InkWell(
+                      child: Container(
+                        child: Column(
+                          children: [
+                            const Image(
+                              image: AssetImage('assets/icons/Doctor1.png'),
+                              width: double.infinity,
                             ),
-                          ),
-                        ],
+                            Text(
+                              'Doctors',
+                              style: TextStyle(
+                                  color: DarkBlueColor,
+                                  fontSize: 30.0
+                              ),
+                            ),
+                          ],
+                        ),
+                        padding: const EdgeInsets.only(bottom: 10.0),
+                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                        decoration: BoxDecoration(
+                          color: const Color(0x1f59d0d0),
+                          borderRadius: BorderRadius.circular(6.0),
+                        ),
                       ),
-                      padding: EdgeInsets.only(bottom: 10.0),
-                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                      decoration: BoxDecoration(
-                        color:  Color(0x1f59d0d0),
-                        borderRadius: BorderRadius.circular(6.0),
-                      ),
+                      onTap: (){
+                        navigator(context, const DoctorsScreen());
+                      },
                     ),
                   ),
-                  SizedBox(width: 15.0,),
+                  const SizedBox(width: 15.0,),
                   Expanded(
-                    child: Container(
-                      child: Column(
-                        children: [
-                          Image(
-                            image: AssetImage('assets/icons/Hospital.png'),
-                            width: double.infinity,
-                          ),
-                          Text(
-                            'Hospitals',
-                            style: TextStyle(
-                                color: DarkBlueColor,
-                                fontSize: 30.0
+                    child: InkWell(
+                      child: Container(
+                        child: Column(
+                          children: [
+                            const Image(
+                              image: AssetImage('assets/icons/Hospital.png'),
+                              width: double.infinity,
                             ),
-                          ),
-                        ],
+                            Text(
+                              'Hospitals',
+                              style: TextStyle(
+                                  color: DarkBlueColor,
+                                  fontSize: 30.0
+                              ),
+                            ),
+                          ],
+                        ),
+                        padding: const EdgeInsets.only(bottom: 10.0),
+                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                        decoration: BoxDecoration(
+                          color: const Color(0x1f59d0d0),
+                          borderRadius: BorderRadius.circular(6.0),
+                        ),
                       ),
-                      padding: EdgeInsets.only(bottom: 10.0),
-                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                      decoration: BoxDecoration(
-                        color:  Color(0x1f59d0d0),
-                        borderRadius: BorderRadius.circular(6.0),
-                      ),
+                      onTap: (){
+                        navigator(context, const HospitalsScreen());
+                      },
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: 20.0,),
+              const SizedBox(height: 20.0,),
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Expanded(
-                    child: Container(
-                      child: Column(
-                        children: [
-                          Image(
-                            image: AssetImage('assets/icons/Reminder.png'),
-                            width: double.infinity,
-                          ),
-                          Text(
-                            'Medicine',
-                            style: TextStyle(
-                              color: DarkBlueColor,
-                              fontSize: 30.0,
+                    child: InkWell(
+                      child: Container(
+                        child: Column(
+                          children: [
+                            const Image(
+                              image: AssetImage('assets/icons/Symptoms.png'),
+                              width: double.infinity,
                             ),
-                          ),
-                          Text(
-                            'Reminder',
-                            style: TextStyle(
-                              color: DarkBlueColor,
-                              fontSize: 30.0,
+                            Text(
+                              'Symptoms',
+                              style: TextStyle(
+                                  color: DarkBlueColor,
+                                  fontSize: 30.0
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
+                        padding: const EdgeInsets.only(bottom: 10.0),
+                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                        decoration: BoxDecoration(
+                          color: const Color(0x1f59d0d0),
+                          borderRadius: BorderRadius.circular(6.0),
+                        ),
                       ),
-                      padding: EdgeInsets.only(bottom: 10.0),
-                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                      decoration: BoxDecoration(
-                        color:  Color(0x1f59d0d0),
-                        borderRadius: BorderRadius.circular(6.0),
-                      ),
+                      onTap: (){
+                        navigator(context, const SymptomsScreen());
+                      },
                     ),
                   ),
-                  SizedBox(width: 15.0,),
+                  const SizedBox(width: 15.0,),
                   Expanded(
-                    child: Container(
-                      child: Column(
-                        children: [
-                          Image(
-                            image: AssetImage('assets/icons/ScanRay.png'),
-                            width: double.infinity,
-                          ),
-                          Text(
-                            'Scan Rays',
-                            style: TextStyle(
-                                color: DarkBlueColor,
-                                fontSize: 30.0
+                    child: InkWell(
+                      child: Container(
+                        child: Column(
+                          children: [
+                            const Image(
+                              image: AssetImage('assets/icons/ScanRay.png'),
+                              width: double.infinity,
                             ),
-                          ),
-                        ],
+                            Text(
+                              'Scan Rays',
+                              style: TextStyle(
+                                  color: DarkBlueColor,
+                                  fontSize: 30.0
+                              ),
+                            ),
+                          ],
+                        ),
+                        padding: const EdgeInsets.only(bottom: 10.0),
+                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                        decoration: BoxDecoration(
+                          color: const Color(0x1f59d0d0),
+                          borderRadius: BorderRadius.circular(6.0),
+                        ),
                       ),
-                      padding: EdgeInsets.only(bottom: 10.0),
-                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                      decoration: BoxDecoration(
-                        color:  Color(0x1f59d0d0),
-                        borderRadius: BorderRadius.circular(6.0),
-                      ),
+                      onTap: (){
+                        navigator(context, const ScanScreen());
+                      },
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: 20.0,),
+              const SizedBox(height: 20.0,),
               Row(
                 children: [
                   Expanded(
-                    child: Container(
-                      child: Column(
-                        children: [
-                          Image(
-                            image: AssetImage('assets/icons/Symptoms.png'),
-                            width: double.infinity,
-                          ),
-                          Text(
-                            'Symptoms',
-                            style: TextStyle(
-                                color: DarkBlueColor,
-                                fontSize: 30.0
+                    child: InkWell(
+                      child: Container(
+                        child: Column(
+                          children: [
+                            const Image(
+                              image: AssetImage('assets/icons/Reminder.png'),
+                              width: double.infinity,
                             ),
-                          ),
-                        ],
+                            Text(
+                              'Medicine',
+                              style: TextStyle(
+                                color: DarkBlueColor,
+                                fontSize: 30.0,
+                              ),
+                            ),
+                            Text(
+                              'Reminder',
+                              style: TextStyle(
+                                color: DarkBlueColor,
+                                fontSize: 30.0,
+                              ),
+                            ),
+                          ],
+                        ),
+                        padding: const EdgeInsets.only(bottom: 10.0),
+                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                        decoration: BoxDecoration(
+                          color: const Color(0x1f59d0d0),
+                          borderRadius: BorderRadius.circular(6.0),
+                        ),
                       ),
-                      padding: EdgeInsets.only(bottom: 10.0),
-                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                      decoration: BoxDecoration(
-                        color:  Color(0x1f59d0d0),
-                        borderRadius: BorderRadius.circular(6.0),
-                      ),
+                      onTap: (){
+                        navigator(context, const MedicineReminderScreen());
+                      },
                     ),
                   ),
-                  SizedBox(width: 15.0,),
+                  const SizedBox(width: 15.0,),
                   Expanded(
                     child: Container(
-                      // child: Column(
-                      //   children: [
-                      //     // Image(
-                      //     //   image: AssetImage('assets/icons/Hospital.png'),
-                      //     //   width: double.infinity,
-                      //     // ),
-                      //     Text(
-                      //       'Hospitals',
-                      //       style: TextStyle(
-                      //           color: DarkBlueColor,
-                      //           fontSize: 30.0
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
-                      padding: EdgeInsets.only(bottom: 10.0),
+                      padding: const EdgeInsets.only(bottom: 10.0),
                       clipBehavior: Clip.antiAliasWithSaveLayer,
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -245,49 +235,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ),
-      ) :screens[currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        currentIndex: currentIndex,
-        onTap: (index) {
-          setState(() {
-            currentIndex = index;
-          });
-        },
-        items: [
-          BottomNavigationBarItem(
-            icon:Icon(
-              Icons.home,
-              color:currentIndex == 0 ?DarkBlueColor : LightGreyColor,
-              size: 40.0,
-            ),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon:Icon(
-                Icons.settings,
-              color:currentIndex == 1 ?DarkBlueColor : LightGreyColor,
-              size: 40.0,
-            ),
-            label: 'Settings',
-          ),
-          BottomNavigationBarItem(
-            icon:Icon(
-                Icons.message_outlined,
-              color:currentIndex == 2 ?DarkBlueColor : LightGreyColor,
-              size: 40.0,
-            ),
-            label: 'Messages',
-          ),
-          BottomNavigationBarItem(
-            icon:Icon(
-                Icons.person,
-              color:currentIndex == 3 ?DarkBlueColor : LightGreyColor,
-              size: 40.0,
-            ),
-            label: 'Profile',
-          ),
-        ],
       ),
     );
   }

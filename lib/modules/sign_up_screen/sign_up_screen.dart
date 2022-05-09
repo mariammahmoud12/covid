@@ -1,217 +1,304 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:covid19/shared/components/components.dart';
+import '../verify_doctor/verify_doctor.dart';
 
-import '../scan_screen/scan_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
-   SignUpScreen({Key? key}) : super(key: key);
+  const SignUpScreen({Key? key}) : super(key: key);
 
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-   var userController = TextEditingController();
+  var userController = TextEditingController();
+  var passwordController = TextEditingController();
+  var password1Controller = TextEditingController();
+  var emailController = TextEditingController();
+  var typeController = TextEditingController();
 
-   var passwordController = TextEditingController();
+  String type = '';
 
-   var emailController = TextEditingController();
+  bool ismale = true;
 
-   bool ismale = true;
+  var formKey = GlobalKey<FormState>();
+
+  // String dropdownvalue = 'Item 1';
+  //
+  // // List of items in our dropdown menu
+  // var items = [
+  //   'Item 1',
+  //   'Item 2',
+  //   'Item 3',
+  //   'Item 4',
+  //   'Item 5',
+  // ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:  AppBar(
-        backgroundColor: blueColor,
-        elevation: 0.0,
-        title: const Text(
-          'Covid',
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 1.0,
+        title: Text(
+          'SIGN UP',
           style: TextStyle(
-            fontSize: 25.0,
-            color: Colors.white,
+            color: DarkBlueColor,
+            fontSize: 27.0,
           ),
         ),
-        leading: const Padding(
-          padding: EdgeInsets.only(left: 6.0,),
-          child: Image(
-            image: AssetImage('assets/icons/logo.png'),
+        centerTitle: true,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: DarkBlueColor,
           ),
         ),
-        actions: [
-          IconButton(
-            onPressed: ()
-            {
-              print('Menu Icon is pressed');
-            },
-            icon: const Icon(Icons.menu , size: 30.0,color: Colors.white,),
-          ),
-        ],
       ),
-      backgroundColor: blueColor,
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                child: Image(
-                  image: AssetImage(
-                      'assets/icons/signup_1.png'
-                  ),
-                ),
-                width: double.infinity,
-                height: 250.0,
-              ),
-              SizedBox(
-                height: 20.0,
-              ),
-              Text(
-                'SIGN UP',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 30.0,
-                  decoration: TextDecoration.underline,
-                ),
-              ),
-              SizedBox(
-                height: 20.0,
-              ),
-              TextFormField(
-                controller: emailController,
-                decoration: InputDecoration(
-                  labelText: 'Email Address',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              SizedBox(
-                height: 15.0,
-              ),
-              TextFormField(
-                controller: userController,
-                decoration: InputDecoration(
-                  labelText: 'Username',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              SizedBox(
-                height: 15.0,
-              ),
-              TextFormField(
-                controller: passwordController,
-                obscureText: true,
-                decoration: InputDecoration(
-                  labelText: 'Password',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              SizedBox(
-                height: 10.0,
-              ),
-              TextFormField(
-                controller: passwordController,
-                obscureText: true,
-                decoration: InputDecoration(
-                  labelText: 'Repeat Password',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              SizedBox(
-                height: 15.0,
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: Row(
+      backgroundColor: Colors.white,
+      body: Stack(alignment: AlignmentDirectional.topStart, children: [
+        const Image(
+          image: AssetImage(
+            'assets/icons/Component1.png',
+          ),
+        ),
+        Center(
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: SingleChildScrollView(
+              child: Form(
+                key: formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(
+                      height: 40.0,
+                    ),
+                    DefaultFormFeild(
+                        controller: emailController,
+                        type: TextInputType.emailAddress,
+                        label: 'Email Address',
+                        prefix: Icons.email_outlined,
+                        validate: (String? value) {
+                          if (value!.isEmpty) {
+                            return 'Email Address must not be empty';
+                          }
+                          return null;
+                        }),
+                    const SizedBox(
+                      height: 20.0,
+                    ),
+                    DefaultFormFeild(
+                        controller: userController,
+                        type: TextInputType.text,
+                        label: 'Username',
+                        prefix: Icons.person,
+                        validate: (String? value) {
+                          if (value!.isEmpty) {
+                            return 'username must not be empty';
+                          }
+                          return null;
+                        }),
+                    const SizedBox(
+                      height: 20.0,
+                    ),
+                    DefaultFormFeild(
+                        controller: passwordController,
+                        type: TextInputType.visiblePassword,
+                        label: 'Password',
+                        prefix: Icons.lock,
+                        validate: (String? value) {
+                          if (value!.isEmpty) {
+                            return 'Password must not be empty';
+                          }
+                          return null;
+                        }),
+                    const SizedBox(
+                      height: 20.0,
+                    ),
+                    DefaultFormFeild(
+                        controller: password1Controller,
+                        type: TextInputType.visiblePassword,
+                        label: 'Repeat Password',
+                        prefix: Icons.lock,
+                        validate: (String? value) {
+                          if (value!.isEmpty) {
+                            return 'Password must not be empty';
+                          }
+                          return null;
+                        }),
+                    const SizedBox(
+                      height: 20.0,
+                    ),
+                    DefaultFormFeild(
+                        controller: typeController,
+                        type: TextInputType.text,
+                        label: 'Register as',
+                        prefix: Icons.directions_run_outlined,
+                        validate: (String? value) {
+                          type = value!;
+                          if (value.isEmpty) {
+                            return 'Type must be Doctor / User';
+                          }
+                          return null;
+                        }),
+                    // DropdownButton(
+                    //
+                    //   // Initial Value
+                    //   value: dropdownvalue,
+                    //
+                    //   // Down Arrow Icon
+                    //   icon: const Icon(Icons.keyboard_arrow_down),
+                    //
+                    //   // Array list of items
+                    //   items: items.map((String items) {
+                    //     return DropdownMenuItem(
+                    //       value: items,
+                    //       child: Text(items),
+                    //     );
+                    //   }).toList(),
+                    //   // After selecting the desired option,it will
+                    //   // change button value to selected value
+                    //   onChanged: (String? newValue) {
+                    //     setState(() {
+                    //       dropdownvalue = newValue!;
+                    //     });
+                    //   },
+                    // ),
+                    // DropdownButton<String>(
+                    //   value: dropdownValue,
+                    //   icon: const Icon(
+                    //       Icons.keyboard_arrow_down_outlined
+                    //   ),
+                    //   elevation: 16,
+                    //   style: TextStyle(
+                    //       color: DarkBlueColor
+                    //   ),
+                    //   underline: Container(
+                    //     height: 1,
+                    //     color: TealColor,
+                    //   ),
+                    //   onChanged: (String? newValue) {
+                    //     setState(() {
+                    //       dropdownValue = newValue!;
+                    //     });
+                    //   },
+                    //   items: <String>['Doctor', 'User']
+                    //       .map<DropdownMenuItem<String>>((String value) {
+                    //     return DropdownMenuItem<String>(
+                    //       value: value,
+                    //       child: Text(value),
+                    //     );
+                    //   }).toList(),
+                    // ),
+                    const SizedBox(
+                      height: 15.0,
+                    ),
+                    Row(
                       children: [
-                        IconButton(
-                          onPressed: ()
-                          {
-                            setState(() {
-                              ismale = true;
-                            });
-                          },
-                          icon: ismale ? Icon(Icons.check_circle) : Icon(Icons.check_circle_outline),
-                          color: indigoColor,
+                        Expanded(
+                          child: Row(
+                            children: [
+                              IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    ismale = true;
+                                  });
+                                },
+                                icon: ismale
+                                    ? const Icon(Icons.check_circle)
+                                    : const Icon(Icons.check_circle_outline),
+                                color: TealColor,
+                              ),
+                              const SizedBox(
+                                width: 10.0,
+                              ),
+                              Text(
+                                'Male',
+                                style: TextStyle(
+                                    color: Colors.grey[600], fontSize: 18.0),
+                              ),
+                            ],
+                          ),
                         ),
-                        SizedBox(
-                          width: 10.0,
+                        const SizedBox(
+                          width: 15.0,
                         ),
-                        Text(
-                            'Male',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18.0
+                        Expanded(
+                          child: Row(
+                            children: [
+                              IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    ismale = false;
+                                  });
+                                },
+                                icon: ismale
+                                    ? const Icon(Icons.check_circle_outline)
+                                    : const Icon(Icons.check_circle),
+                                color: TealColor,
+                              ),
+                             const SizedBox(
+                                width: 10.0,
+                              ),
+                              Text(
+                                'Female',
+                                style: TextStyle(
+                                    color: Colors.grey[600], fontSize: 18.0),
+                              ),
+                            ],
                           ),
                         ),
                       ],
                     ),
-                  ),
-                  SizedBox(
-                    width: 15.0,
-                  ),
-                  Expanded(
-                    child: Row(
-                      children: [
-                        IconButton(
-                          onPressed: ()
-                          {
-                            setState(() {
-                              ismale = false;
-                            });
-                          },
-                          icon: ismale ? Icon(Icons.check_circle_outline) : Icon(Icons.check_circle),
-                          color: indigoColor,
+                    const SizedBox(
+                      height: 15.0,
+                    ),
+                    Container(
+                      height: 50.0,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                          color: TealColor,
+                          borderRadius: BorderRadius.circular(6.0)),
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      child: MaterialButton(
+                        onPressed: () {
+                          if (formKey.currentState!.validate()) {
+                            if(type.toString() == 'Doctor')
+                              {navigator(context, const VerifyDoctor());}
+                          }
+                        },
+                        child: const Text(
+                          'SIGN UP',
+                          style: TextStyle(color: Colors.white, fontSize: 20.0),
                         ),
-                        SizedBox(
-                          width: 10.0,
-                        ),
-                        Text(
-                          'Female',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18.0
+                      ),
+                    ),
+                   const SizedBox(
+                      height: 40.0,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Container(
+                        height: 75.0,
+                        alignment: AlignmentDirectional.bottomCenter,
+                        child: const Image(
+                          image: AssetImage(
+                            'assets/icons/Component2.png',
                           ),
                         ),
-                      ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 15.0,
-              ),
-              Container(
-                height: 50.0,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    color: indigoColor,
-                    borderRadius: BorderRadius.circular(35.0)
-                ),
-                clipBehavior: Clip.antiAliasWithSaveLayer,
-                child: MaterialButton(
-                  onPressed: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=> ScanScreen()));
-                  },
-                  child: Text(
-                    'SIGN UP',
-                    style: TextStyle(
-                        color: goldColor,
-                        fontSize: 20.0
-                    ),
-                  ),
+                  ],
                 ),
               ),
-              SizedBox(
-                height: 20.0,
-              ),
-            ],
+            ),
           ),
         ),
-      ),
+      ]),
     );
   }
 }

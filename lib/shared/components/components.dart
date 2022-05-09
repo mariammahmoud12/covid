@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
-var blueColor = Color(0xff3db2ff);
-var redColor = Color(0xffff2442);
-var goldColor = Color(0xffffb830);
-var indigoColor = Color(0xff2f2e41);
-var light_orangeColor = Color(0xffffedda);
+var blueColor = const Color(0xff3db2ff);
+var redColor = const Color(0xffff2442);
+var goldColor = const Color(0xffffb830);
+var indigoColor = const Color(0xff2f2e41);
+var light_orangeColor = const Color(0xffffedda);
 
 
-var DarkBlueColor = Color(0xff4081b3);
-var GoldColor = Color(0xfffec644);
-var LightGreyColor = Color(0xffa7a9ac);
-var TealColor = Color(0xff44a8c6);
-var lightTealColor = Color(0xff59d0d0);
+var DarkBlueColor = const Color(0xff4081b3);
+var GoldColor = const Color(0xfffec644);
+var LightGreyColor = const Color(0xffa7a9ac);
+var TealColor = const Color(0xff44a8c6);
+var lightTealColor = const Color(0xff59d0d0);
 
 
 Widget DefaultFormFeild({
@@ -43,3 +43,10 @@ Widget DefaultFormFeild({
         border:const OutlineInputBorder(),
       ),
     );
+
+
+void navigator(context , Widget screen){
+  Navigator.push(context, MaterialPageRoute(builder: (context)=> screen));
+}
+
+
