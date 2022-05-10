@@ -1,12 +1,12 @@
-import 'package:covid19/modules/medicine_reminder_screen/cubit/states.dart';
+import 'package:covid19/modules/medicine_reminder_screen/cubit/reminder_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sqflite/sqflite.dart';
 
-class AppCubit extends Cubit<AppStates>{
-  AppCubit():super(AppInitialState());
+class ReminderCubit extends Cubit<ReminderStates>{
+  ReminderCubit():super(ReminderInitialState());
 
-  static AppCubit get(context)=> BlocProvider.of(context);
+  static ReminderCubit get(context)=> BlocProvider.of(context);
 
   late Database database;
   List<Map> medicines = [];
@@ -31,7 +31,7 @@ class AppCubit extends Cubit<AppStates>{
         }
     ).then((value) {
       database = value;
-      emit(AppCreateDB());
+      emit(ReminderCreateDB());
     });
   }
 
@@ -46,13 +46,13 @@ class AppCubit extends Cubit<AppStates>{
           .then((value) {
         print('$value inserted successfully');
 
-        emit(AppInsertToDB());
+        emit(ReminderInsertToDB());
 
         getDataFromDB(database).then((value) {
           medicines = value;
           print(medicines);
 
-          emit(AppGetFromDB());
+          emit(ReminderGetFromDB());
         });
       }).catchError((error) {
         print('error when inserting new record : $error');
@@ -74,6 +74,6 @@ class AppCubit extends Cubit<AppStates>{
     isBottomSheetShown = isShow;
     FABIcon = icon;
 
-    emit(AppChangeBottomSheetState());
+    emit(ReminderChangeBottomSheetState());
   }
 }

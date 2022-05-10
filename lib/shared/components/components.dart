@@ -49,4 +49,8 @@ void navigator(context , Widget screen){
   Navigator.push(context, MaterialPageRoute(builder: (context)=> screen));
 }
 
+void navigatorAndFinish(context , Widget screen){
+  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> screen), (route) => false,);
+}
+
 

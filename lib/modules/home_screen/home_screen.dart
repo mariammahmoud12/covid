@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../doctors_screen/doctors_screen.dart';
 import '../hospitals_screen/hospitals_screen.dart';
 import '../medicine_reminder_screen/medicine_reminder_screen.dart';
-import '../messenger_screen/messenger_screen.dart';
+import '../messenger_screen/chats_screen.dart';
 import '../scan_screen/scan_screen.dart';
 import '../setting_screen/setting_screen.dart';
 import '../symptoms_screen/symptoms_screen.dart';
@@ -24,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Widget> screens =
   [
     const HomeScreen(),
-    const MessengerScreen(),
+    const ChatsScreen(),
     const UserProfileScreen(),
     const SettingScreen(),
   ];
