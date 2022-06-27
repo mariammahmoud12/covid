@@ -215,14 +215,14 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       onTap: (){
-                        navigator(context, const MedicineReminderScreen());
+                        navigator(context, MedicineReminderScreen());
                       },
                     ),
                   ),
                   const SizedBox(width: 15.0,),
                   Expanded(
                     child: Container(
-                      padding: const EdgeInsets.only(bottom: 10.0),
+                      padding:  EdgeInsets.only(bottom: 10.0),
                       clipBehavior: Clip.antiAliasWithSaveLayer,
                       decoration: BoxDecoration(
                         color: Colors.white,

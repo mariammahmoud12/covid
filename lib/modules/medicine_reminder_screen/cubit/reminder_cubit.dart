@@ -14,12 +14,12 @@ class ReminderCubit extends Cubit<ReminderStates>{
   void createDB()
   {
     openDatabase(
-        'Todo.db',
+        'medicine.db',
         version: 1,
         onCreate: (database, version) {
           print('Database Created');
           database.execute(
-              'CREATE TABLE tasks(id INTEGER PRIMARY KEY, title TEXT , date TEXT , time TEXT , status TEXT)')
+              'CREATE TABLE tasks(id INTEGER PRIMARY KEY, name TEXT , timesAday TEXT , time1 TEXT , time2 TEXT , time3 TEXT)')
               .then((value) {
             print('table created');
           }).catchError((error) {
@@ -36,13 +36,15 @@ class ReminderCubit extends Cubit<ReminderStates>{
   }
 
   insertToDb({
-    required String title,
-    required String time,
-    required String date,}) async
+    required String name,
+    required String timesAday,
+    required String time1,
+    String? time2,
+    String? time3,}) async
   {
     await database.transaction((txn) {
       return txn.rawInsert(
-          'INSERT INTO tasks (title , date , time , status ) VALUES("$title" , "$date" , "$time" , "new")')
+          'INSERT INTO tasks (name ,timesAday , time1 , time2 , time3 ) VALUES("$name" , "$timesAday" , "$time1" , "$time2" , "$time3")')
           .then((value) {
         print('$value inserted successfully');
 
@@ -62,17 +64,17 @@ class ReminderCubit extends Cubit<ReminderStates>{
 
   Future <List<Map>> getDataFromDB(database) async
   {
-    return await database.rawQuery('SELECT * FROM tasks');
+    return await database.rawQuery('SELECT * FROM medicine');
   }
 
   bool isBottomSheetShown = false;
   IconData FABIcon = Icons.edit;
   void ChangeBottomSheetState({
     required bool isShow,
-    required IconData icon,
+   // required IconData icon,
   }){
     isBottomSheetShown = isShow;
-    FABIcon = icon;
+   // FABIcon = icon;
 
     emit(ReminderChangeBottomSheetState());
   }
