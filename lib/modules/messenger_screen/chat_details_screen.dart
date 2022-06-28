@@ -135,7 +135,7 @@ class ChatDetailsScreen extends StatelessWidget {
                                   onPressed: () {
                                     if (userModel != null) {
                                       ChatCubit.get(context).sendMessage(
-                                        receiverId: 'BAK0NeQiLGbLbBTmgAsbVW3QII03',
+                                        receiverId: model.uId!,
                                         dateTime: DateTime.now().toString(),
                                         text: messageController.text,
                                       );

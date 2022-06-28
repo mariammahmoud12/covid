@@ -50,14 +50,14 @@ class _LoginScreenState extends State<LoginScreen> {
         body: Stack(
           alignment: AlignmentDirectional.topStart,
           children: [
-            Image(
+            const Image(
               image: AssetImage(
                 'assets/icons/Component1.png',
               ),
             ),
             Center(
               child: Padding(
-                padding: EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(20.0),
                 child:SingleChildScrollView(
                   child: Form(
                     key: FormKey,
@@ -66,7 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           height: 40.0,
                         ),
                         DefaultFormFeild(
@@ -81,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               return null;
                             }
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20.0,
                         ),
                         DefaultFormFeild(
@@ -96,7 +96,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               return null;
                             }
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20.0,
                         ),
                         TextButton(
@@ -113,7 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20.0,
                         ),
                         Container(
@@ -131,23 +131,29 @@ class _LoginScreenState extends State<LoginScreen> {
                                 if(FormKey.currentState!.validate())
                                   {
                                     LoginCubit.get(context).userLogin(email: emailController.text, password: passwordController.text).then((value) {
-                                      AppCubit.get(context).getUserData().then((value) {
-                                        navigatorAndFinish(context, const HomeLayout());
-                                      });
+                                      if(value){
+                                        AppCubit.get(context).getUserData().then((value) {
+                                          navigatorAndFinish(context, const HomeLayout());
+                                        });
+                                      } else{
+                                        emailController.text = '';
+                                        passwordController.text = '';
+                                        FormKey.currentState!.validate();
+                                      }
                                     });
                                   }
                               },
-                              child: Text(
+                              child: state is! LoginLoadingState ? const Text(
                                 'LOGIN',
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 20.0
                                 ),
-                              ),
+                              ) : const CircularProgressIndicator(color: Colors.white,),
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20.0,
                         ),
                         Row(
@@ -162,7 +168,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             TextButton(
                               onPressed: (){
-                                navigator(context, SignUpScreen());
+                                navigator(context, const SignUpScreen());
                               },
                               child: Text(
                                 'Sign Up',
@@ -174,7 +180,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 40.0,
                         ),
                         Padding(
@@ -182,7 +188,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: Container(
                             height: 75.0,
                             alignment: AlignmentDirectional.bottomCenter,
-                            child: Image(
+                            child: const Image(
                               image: AssetImage(
                                 'assets/icons/Component2.png',
                               ),

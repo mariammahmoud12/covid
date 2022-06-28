@@ -22,6 +22,7 @@ Widget DefaultFormFeild({
   Function? suffisPressed,
   required String? Function(String?) validate,
   void Function()? onTap,
+  bool readOnly = false,
 }) =>
     TextFormField(
       controller: controller,
@@ -29,6 +30,7 @@ Widget DefaultFormFeild({
       obscureText: isPassword,
       validator: validate,
       onTap: onTap,
+      readOnly: readOnly,
       decoration: InputDecoration(
         labelText: label,
         prefixIcon: Icon(

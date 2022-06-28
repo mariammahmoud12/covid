@@ -215,7 +215,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       onTap: (){
-                        navigator(context, MedicineReminderScreen());
+                        navigator(context, const MedicineReminderScreen());
                       },
                     ),
                   ),

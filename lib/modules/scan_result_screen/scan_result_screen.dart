@@ -1,5 +1,6 @@
 import 'package:covid19/layouts/home_layout/home_layout.dart';
 import 'package:covid19/shared/components/components.dart';
+import 'package:covid19/shared/cubit/app_cubit.dart';
 import 'package:flutter/material.dart';
 
 class ScanScreenResult extends StatelessWidget {
@@ -31,7 +32,7 @@ class ScanScreenResult extends StatelessWidget {
       ),
       backgroundColor: Colors.white,
       body: Padding(
-        padding: EdgeInsets.symmetric(vertical:40.0),
+        padding: EdgeInsets.symmetric(vertical: 40.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -42,22 +43,19 @@ class ScanScreenResult extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                      'The Result is :',
+                    'The Result is :',
                     style: TextStyle(
                       color: Colors.grey[700],
                       fontSize: 30.0,
                     ),
+                    textAlign: TextAlign.center,
                   ),
                   const SizedBox(
                     height: 20.0,
                   ),
                   Text(
-                      'Positive',
-                    style: TextStyle(
-                      color: DarkBlueColor,
-                      fontSize: 40.0,
-                      fontWeight: FontWeight.bold
-                    ),
+                    AppCubit.get(context).scanResult!.result!.toLowerCase().contains('noncovid') ? 'Non-Covid' : 'Covid',
+                    style: TextStyle(color: DarkBlueColor, fontSize: 40.0, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(
                     height: 30.0,
@@ -65,9 +63,7 @@ class ScanScreenResult extends StatelessWidget {
                   Container(
                     height: 50.0,
                     width: 200.0,
-                    decoration: BoxDecoration(
-                        color: TealColor,
-                        borderRadius: BorderRadius.circular(6.0)),
+                    decoration: BoxDecoration(color: TealColor, borderRadius: BorderRadius.circular(6.0)),
                     clipBehavior: Clip.antiAliasWithSaveLayer,
                     child: MaterialButton(
                       onPressed: () {

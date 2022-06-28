@@ -9,7 +9,7 @@ class LoginCubit extends Cubit<LoginStates>{
 
   static LoginCubit get(context)=> BlocProvider.of(context);
 
-  Future<void> userLogin({
+  Future<bool> userLogin({
     required String email,
     required String password,
   }) async {
@@ -27,7 +27,10 @@ class LoginCubit extends Cubit<LoginStates>{
           print(uId);
       emit(LoginSuccessState());
     }).catchError((error) {
+      print('errorrrr$error');
       emit(LoginErrorState());
     });
+
+    return uId != null;
   }
 }

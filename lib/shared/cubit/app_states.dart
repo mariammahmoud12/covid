@@ -15,3 +15,7 @@ class AppGetChatsLoadingState extends AppStates{}
 class AppGetChatsSuccessState extends AppStates{}
 
 class AppGetChatsErrorState extends AppStates{}
+
+class PickImageSuccessState extends AppStates{}
+
+class PickImageErrorState extends AppStates{}
