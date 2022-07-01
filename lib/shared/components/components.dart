@@ -1,3 +1,4 @@
+import 'package:covid19/modules/medicine_info_screen/medicine_info_screen.dart';
 import 'package:flutter/material.dart';
 
 var blueColor = const Color(0xff3db2ff);
@@ -19,7 +20,7 @@ Widget DefaultFormFeild({
   required prefix,
   bool isPassword = false,
   IconData? suffix,
-  Function? suffisPressed,
+  Function? suffixPressed,
   required String? Function(String?) validate,
   void Function()? onTap,
   bool readOnly = false,
@@ -39,7 +40,7 @@ Widget DefaultFormFeild({
         suffixIcon: suffix != null
             ? IconButton(
                 icon: Icon(suffix),
-                onPressed: suffisPressed!(),
+                onPressed: suffixPressed!(),
               )
             : null,
         border: const OutlineInputBorder(),
@@ -58,39 +59,46 @@ void navigatorAndFinish(context, Widget screen) {
   );
 }
 
-Widget BuildMedItem(Map model) => Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Row(
-        children: [
-          CircleAvatar(
-            backgroundImage: AssetImage(
+Widget BuildMedItem(Map model,context , int index) => InkWell(
+  onTap: (){
+    navigator(context, MedicineInfoScreen(index : index));
+  },
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Row(
+          children: [
+            CircleAvatar(
+              backgroundImage: AssetImage(
                 'assets/icons/medicine.png',
               ),
-            radius: 40.0,
-            // backgroundColor: Colors.teal,
-          ),
-          SizedBox(
-            width: 20.0,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                '${model['name']}',
-                style: TextStyle(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.bold,
+
+              radius: 40.0,
+
+              // backgroundColor: Colors.teal,
+            ),
+            SizedBox(
+              width: 20.0,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  '${model['name']}',
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 20.0,
-              ),
-              Text(
-                '${model['timesAday']}',
-                style: TextStyle(fontSize: 16.0, color: Colors.grey),
-              ),
-            ],
-          ),
-        ],
+                SizedBox(
+                  height: 20.0,
+                ),
+                Text(
+                  '${model['timesAday']}',
+                  style: TextStyle(fontSize: 16.0,),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );

@@ -3,15 +3,18 @@ import 'package:covid19/modules/medicine_reminder_screen/cubit/reminder_states.d
 import 'package:covid19/shared/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sqflite/sqflite.dart';
 
-class AddMedicineScreen extends StatefulWidget {
-  const AddMedicineScreen({Key? key}) : super(key: key);
+
+class UpdateMedicineScreen extends StatefulWidget {
+   UpdateMedicineScreen( {Key? key}) : super(key: key);
+
 
   @override
-  State<AddMedicineScreen> createState() => _AddMedicineScreenState();
+  State<UpdateMedicineScreen> createState() => _UpdateMedicineScreenState();
 }
 
-class _AddMedicineScreenState extends State<AddMedicineScreen> {
+class _UpdateMedicineScreenState extends State<UpdateMedicineScreen> {
   var NameController = TextEditingController();
 
   var EveryDayController = TextEditingController();
@@ -25,12 +28,15 @@ class _AddMedicineScreenState extends State<AddMedicineScreen> {
   var TimeController3 = TextEditingController();
 
   final items1 = ['Yes', 'No', 'Only as needed'];
+
   String? value1;
 
   final items2 = ['Once a day', 'Twice daily', '3 times a day'];
+
   String? value2;
 
   var scaffoldKey = GlobalKey<ScaffoldState>();
+
   var formKey = GlobalKey<FormState>();
 
   @override
@@ -41,7 +47,7 @@ class _AddMedicineScreenState extends State<AddMedicineScreen> {
         key: scaffoldKey,
         appBar: AppBar(
           title: Text(
-            'Add Medicine',
+            'Update Medicine',
             style: TextStyle(
               color: DarkBlueColor,
               fontSize: 27.0,
@@ -109,8 +115,8 @@ class _AddMedicineScreenState extends State<AddMedicineScreen> {
                       height: 5.0,
                     ),
                     Container(
-                      margin: EdgeInsets.only(bottom: 20.0),
-                      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                      margin: const EdgeInsets.only(bottom: 20.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(6),
                         border: Border.all(color: Colors.grey, width: 2),
@@ -125,7 +131,7 @@ class _AddMedicineScreenState extends State<AddMedicineScreen> {
                           ),
                           value: value1,
                           items: items1.map(buildMenuItem).toList(),
-                          onChanged: (value) => setState(() => this.value1 = value),
+                          onChanged: (value) => setState(() => value1 = value),
                         ),
                       ),
                     ),
@@ -140,7 +146,7 @@ class _AddMedicineScreenState extends State<AddMedicineScreen> {
                       height: 5.0,
                     ),
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(6),
                         border: Border.all(color: Colors.grey, width: 2),
@@ -156,8 +162,8 @@ class _AddMedicineScreenState extends State<AddMedicineScreen> {
                           value: value2,
                           items: items2.map(buildMenuItem).toList(),
                           onChanged: (value) => setState(
-                            () {
-                              this.value2 = value;
+                                () {
+                              value2 = value;
                               if (value2.toString() == '3 times a day') {
                                 scaffoldKey.currentState?.showBottomSheet((context) => Container(
                                     padding: const EdgeInsets.all(15.0),
@@ -257,7 +263,8 @@ class _AddMedicineScreenState extends State<AddMedicineScreen> {
                                             },
                                           ),
                                         ]))));
-                              } else if (value2.toString() == 'Twice daily') {
+                              }
+                              else if (value2.toString() == 'Twice daily') {
                                 scaffoldKey.currentState?.showBottomSheet((context) => Container(
                                     padding: const EdgeInsets.all(15.0),
                                     child: Form(
@@ -331,9 +338,10 @@ class _AddMedicineScreenState extends State<AddMedicineScreen> {
                                             },
                                           ),
                                         ]))));
-                              } else {
+                              }
+                              else {
                                 scaffoldKey.currentState?.showBottomSheet(
-                                  (context) => Container(
+                                      (context) => Container(
                                     padding: const EdgeInsets.all(15.0),
                                     child: Form(
                                       key: formKey,
@@ -397,23 +405,6 @@ class _AddMedicineScreenState extends State<AddMedicineScreen> {
                     const SizedBox(
                       height: 20.0,
                     ),
-                    // Center(
-                    //   child: Container(
-                    //     height: 50.0,
-                    //     width: 150.0,
-                    //     decoration: BoxDecoration(color: TealColor, borderRadius: BorderRadius.circular(8.0)),
-                    //     clipBehavior: Clip.antiAliasWithSaveLayer,
-                    //     child: MaterialButton(
-                    //       onPressed: () {
-                    //         Navigator.pop(context);
-                    //       },
-                    //       child: const Text(
-                    //         'Add',
-                    //         style: TextStyle(color: Colors.white, fontSize: 20.0),
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
                     const SizedBox(
                       height: 40.0,
                     ),
@@ -433,10 +424,16 @@ class _AddMedicineScreenState extends State<AddMedicineScreen> {
   }
 
   DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
-        value: item,
-        child: Text(
-          item,
-          style: TextStyle(fontSize: 20.0, color: Colors.grey[700]),
-        ),
-      );
+    value: item,
+    child: Text(
+      item,
+      style: TextStyle(fontSize: 20.0, color: Colors.grey[700]),
+    ),
+  );
+
+  Future<void> updateUser({required Database database, String? name, String? timesAday ,String? time1,String? time2,String? time3, required int id}) async {
+    await database.rawUpdate(
+        'UPDATE Users SET name = ?, timesAday = ?,time1 = ? , time2 =? , time3 = ? WHERE id = ?',
+        ["$name", "$timesAday", "$time1","$time2" ,"$time3","$id" ]);
+  }
 }

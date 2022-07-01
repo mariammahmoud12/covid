@@ -1,12 +1,22 @@
-import 'package:covid19/modules/add_medicine_screen/add_medicine_screen.dart';
+import 'package:covid19/modules/medicine_reminder_screen/cubit/reminder_cubit.dart';
 import 'package:covid19/shared/components/components.dart';
 import 'package:flutter/material.dart';
 
-class MedicineInfoScreen extends StatelessWidget {
-  const MedicineInfoScreen({Key? key}) : super(key: key);
+import '../update_medicine_info/update_medicine_info.dart';
 
-  @override
+class MedicineInfoScreen extends StatelessWidget {
+
+   final int index ;
+   MedicineInfoScreen({
+     required this.index,
+   });
+
+   var id = 0 ;
+
+   @override
   Widget build(BuildContext context) {
+    id = ReminderCubit.get(context).medicines[index]['id'];
+    print('the id is : $id');
     return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -31,7 +41,7 @@ class MedicineInfoScreen extends StatelessWidget {
           actions: [
             TextButton(
               onPressed: (){
-                navigator(context, AddMedicineScreen());
+                navigator(context, UpdateMedicineScreen());
               },
               child: Text('Edit'),
             ),
@@ -52,7 +62,7 @@ class MedicineInfoScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                        'Name of medicine',
+                        '${ReminderCubit.get(context).medicines[index]['name']}',
                       style: TextStyle(
                         color: DarkBlueColor,
                         fontWeight: FontWeight.w900,
@@ -71,7 +81,7 @@ class MedicineInfoScreen extends StatelessWidget {
                       height: 20.0,
                     ),
                     Text(
-                      'Times A day',
+                      '${ReminderCubit.get(context).medicines[index]['timesAday']}',
                       style: TextStyle(
                         color: DarkBlueColor,
                         fontWeight: FontWeight.w900,
@@ -82,7 +92,7 @@ class MedicineInfoScreen extends StatelessWidget {
                       height: 20.0,
                     ),
                     Text(
-                      'Time 1',
+                      '${ReminderCubit.get(context).medicines[index]['time1']}',
                       style: TextStyle(
                         fontSize: 22.0,
                       ),
@@ -91,7 +101,7 @@ class MedicineInfoScreen extends StatelessWidget {
                       height: 20.0,
                     ),
                     Text(
-                      'Time 2',
+                      '${ReminderCubit.get(context).medicines[index]['time2']}',
                       style: TextStyle(
                         fontSize: 22.0,
                       ),
@@ -100,7 +110,7 @@ class MedicineInfoScreen extends StatelessWidget {
                       height: 20.0,
                     ),
                     Text(
-                      'Time 3',
+                      '${ReminderCubit.get(context).medicines[index]['time3']}',
                       style: TextStyle(
                         fontSize: 22.0,
                       ),

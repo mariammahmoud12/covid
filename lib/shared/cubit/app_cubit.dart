@@ -114,7 +114,7 @@ class AppCubit extends Cubit<AppStates> {
   ScanModel? scanResult;
 
   Future<void> getScanResult() async {
-    const String url = 'https://e656-197-165-198-113.eu.ngrok.io/api/upload/xray';
+    const String url = 'https://27ea-45-242-158-16.eu.ngrok.io/api/upload/xray';
     var request = http.MultipartRequest('POST', Uri.parse(url));
     request.files.add(await http.MultipartFile.fromPath('picture', profileImage!.path.toString()));
     var requestStream = await request.send();

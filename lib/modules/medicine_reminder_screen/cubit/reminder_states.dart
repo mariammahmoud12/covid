@@ -9,4 +9,6 @@ class ReminderCreateDB extends ReminderStates{}
 
 class ReminderGetFromDB extends ReminderStates{}
 
+class ReminderUpdateDB extends ReminderStates{}
+
 class ReminderChangeBottomSheetState extends ReminderStates{}

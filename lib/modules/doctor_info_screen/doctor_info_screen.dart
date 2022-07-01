@@ -1,3 +1,5 @@
+import 'package:covid19/models/user_model.dart';
+import 'package:covid19/modules/messenger_screen/chat_details_screen.dart';
 import 'package:covid19/shared/components/components.dart';
 import 'package:flutter/material.dart';
 
@@ -97,9 +99,7 @@ class DoctorInfoScreen extends StatelessWidget {
                       clipBehavior: Clip.antiAliasWithSaveLayer,
                       child: MaterialButton(
                         onPressed: () {
-                          //   if (FormKey.currentState!.validate()) {
-                         // navigator(context, ScanScreenResult());
-                          //   }
+                          //navigator(context, ChatDetailsScreen(model: UserModel,));
                         },
                         child: const Text(
                           'Message',

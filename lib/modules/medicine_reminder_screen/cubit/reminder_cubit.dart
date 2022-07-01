@@ -1,5 +1,4 @@
 import 'package:covid19/modules/medicine_reminder_screen/cubit/reminder_states.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -14,7 +13,7 @@ class ReminderCubit extends Cubit<ReminderStates> {
   void createDB() {
     openDatabase('medicine.db', version: 1, onCreate: (database, version) {
       print('Database Created');
-      database.execute('CREATE TABLE tasks(id INTEGER PRIMARY KEY, name TEXT , timesAday TEXT , time1 TEXT , time2 TEXT , time3 TEXT)').then((value) {
+      database.execute('CREATE TABLE medicines(id INTEGER PRIMARY KEY, name TEXT , timesAday TEXT , time1 TEXT , time2 TEXT , time3 TEXT)').then((value) {
         print('table created');
       }).catchError((error) {
         print('error when creating table is : ${error.toString()}');
@@ -42,7 +41,7 @@ class ReminderCubit extends Cubit<ReminderStates> {
   }) async {
     await database.transaction((txn) {
       return txn
-          .rawInsert('INSERT INTO tasks (name ,timesAday , time1 , time2 , time3 ) VALUES("$name" , "$timesAday" , "$time1" , "$time2" , "$time3")')
+          .rawInsert('INSERT INTO medicines (name ,timesAday , time1 , time2 , time3 ) VALUES("$name" , "$timesAday" , "$time1" , "$time2" , "$time3")')
           .then((value) {
         print('$value inserted successfully');
 
@@ -61,11 +60,29 @@ class ReminderCubit extends Cubit<ReminderStates> {
   }
 
   Future<List<Map>> getDataFromDB(database) async {
-    return await database.rawQuery('SELECT * FROM tasks');
+    return await database.rawQuery('SELECT * FROM medicines');
+  }
+
+  Future<void> updateDB ({
+    required int id,
+    required String name,
+    required String timesAday,
+    required String time1,
+    String? time2,
+    String? time3,
+}) async
+  {
+    await database.rawUpdate(
+        'UPDATE medicines SET name = ? , timesAday =? , time1 = ? , time2 =? , time3 =? WHERE id = ?',
+        [name, timesAday, time1 , time2 , time3 , id]).then((value)
+    {
+      getDataFromDB(database);
+      emit(ReminderUpdateDB());
+    });
   }
 
   bool isBottomSheetShown = false;
-  IconData FABIcon = Icons.edit;
+  //IconData FABIcon = Icons.edit;
 
   void ChangeBottomSheetState({
     required bool isShow,

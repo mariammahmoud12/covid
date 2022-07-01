@@ -42,7 +42,11 @@ class MedicineReminderScreen extends StatelessWidget {
               ),
             ),
             ListView.separated(
-              itemBuilder: (context, index) => BuildMedItem(ReminderCubit.get(context).medicines[index]),
+              itemBuilder: (context, index) => BuildMedItem(
+                  ReminderCubit.get(context).medicines[index] ,
+                  context ,
+                  index,
+              ),
               separatorBuilder: (context, index) => Padding(
                 padding: const EdgeInsetsDirectional.only(start: 20.0),
                 child: Container(

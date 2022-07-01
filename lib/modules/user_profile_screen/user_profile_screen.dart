@@ -8,12 +8,7 @@ class UserProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: TextButton(
-          child: Text('User Profile'),
-      onPressed: (){
-            navigator(context, MedicineInfoScreen());
-      }
-        ,),
+      child: Text('User Profile'),
     );
   }
 }

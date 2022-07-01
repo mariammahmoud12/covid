@@ -132,7 +132,7 @@ class _ScanScreenState extends State<ScanScreen> {
                   GestureDetector(
                     onTap: () async{
                       await AppCubit.get(context).getScanResult();
-                      Navigator.pop(context);
+                      // Navigator.pop(context);
                       navigator(context, const ScanScreenResult());
                     },
                     child: Padding(

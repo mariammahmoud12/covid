@@ -81,6 +81,14 @@ class HospitalInfoScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 20.0,),
                     Text(
+                      'Hospital number : 19777',
+                      style: TextStyle(
+                        fontSize: 25.0,
+                        color: LightGreyColor,
+                      ),
+                    ),
+                    SizedBox(height: 20.0,),
+                    Text(
                       'it is a long established fact that a reader will be distracted the readable content.it is a long established fact that a reader will be distracted the readable content.it is a long established fact that a reader will be distracted the readable content.it is a long established fact that a reader will be distracted the readable content.it is a long established fact that a reader will be distracted the readable content.',
                       maxLines: 10,
                       overflow: TextOverflow.ellipsis,

@@ -58,28 +58,28 @@ class _SymptomsScreenState extends State<SymptomsScreen> {
                     'Check on your ',
                     style: TextStyle(
                       color: Colors.grey[600],
-                      fontSize: 20.0,
+                      fontSize: 16.0,
                     ),
                   ),
                   Text(
                     'Symptoms ',
                     style: TextStyle(
                       color: DarkBlueColor,
-                      fontSize: 22.0,
+                      fontSize: 18.0,
                     ),
                   ),
                   Text(
                     'to get ',
                     style: TextStyle(
                       color: Colors.grey[600],
-                      fontSize: 20.0,
+                      fontSize: 16.0,
                     ),
                   ),
                   Text(
                     'Result',
                     style: TextStyle(
                       color: DarkBlueColor,
-                      fontSize: 22.0,
+                      fontSize: 18.0,
                     ),
                   ),
                 ],
