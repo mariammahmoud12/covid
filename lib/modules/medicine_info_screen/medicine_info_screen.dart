@@ -41,7 +41,7 @@ class MedicineInfoScreen extends StatelessWidget {
           actions: [
             TextButton(
               onPressed: (){
-                navigator(context, UpdateMedicineScreen());
+                navigator(context, UpdateMedicineScreen(medicine: ReminderCubit.get(context).medicines[index]));
               },
               child: Text('Edit'),
             ),

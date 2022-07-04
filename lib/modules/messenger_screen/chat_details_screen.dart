@@ -7,14 +7,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
-import '../../models/user_model.dart';
+class ChatDetailsScreen extends StatefulWidget {
+  final model;
 
-class ChatDetailsScreen extends StatelessWidget {
-  final UserModel model;
+  const ChatDetailsScreen({Key? key, required this.model}) : super(key: key);
 
-  ChatDetailsScreen({Key? key, required this.model}) : super(key: key);
+  @override
+  State<ChatDetailsScreen> createState() => _ChatDetailsScreenState();
+}
 
+class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
   var messageController = TextEditingController();
+
   var scrollController = ScrollController();
 
   @override
@@ -22,7 +26,7 @@ class ChatDetailsScreen extends StatelessWidget {
     return Builder(
       builder: (BuildContext context) {
         return BlocProvider(
-          create: (context) => ChatCubit()..getMessages(receiverId: model.uId!),
+          create: (context) => ChatCubit()..getMessages(receiverId: widget.model.uId!),
           child: BlocConsumer<ChatCubit, ChatStates>(
             listener: (context, state) {},
             builder: (context, state) {
@@ -45,7 +49,7 @@ class ChatDetailsScreen extends StatelessWidget {
                         width: 15.0,
                       ),
                       Text(
-                        model.name!,
+                        widget.model.name!,
                       ),
                     ],
                   ),
@@ -135,7 +139,7 @@ class ChatDetailsScreen extends StatelessWidget {
                                   onPressed: () {
                                     if (userModel != null) {
                                       ChatCubit.get(context).sendMessage(
-                                        receiverId: model.uId!,
+                                        receiverId: widget.model.uId!,
                                         dateTime: DateTime.now().toString(),
                                         text: messageController.text,
                                       );

@@ -1,4 +1,5 @@
 import 'package:covid19/shared/components/components.dart';
+import 'package:covid19/shared/cubit/app_cubit.dart';
 import 'package:flutter/material.dart';
 
 import '../doctors_screen/doctors_screen.dart';
@@ -75,6 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       onTap: (){
+                        AppCubit.get(context).getDoctors();
                         navigator(context, const DoctorsScreen());
                       },
                     ),

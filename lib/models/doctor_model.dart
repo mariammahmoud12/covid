@@ -1,42 +1,45 @@
-class UserModel {
+class DoctorModel{
   int? id;
   String? name;
   String? email;
   String? phone;
-  String? type;
   String? uId;
-  String? image;
+  String? type;
   String? gander;
+  String? image;
+  String? imageID;
   String? bio;
   String? cover;
-  bool? isEmailVerified;
+  bool? isDoctorVerified;
 
-  UserModel({
+  DoctorModel({
     this.id,
     this.name,
-    this.type,
     this.email,
+    this.type,
     this.phone,
     this.gander,
     this.uId,
     this.image,
+    this.imageID,
     this.bio,
     this.cover,
-    this.isEmailVerified,
+    this.isDoctorVerified,
   });
 
-  UserModel.fromJson(Map<String, dynamic> json) {
+  DoctorModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     email = json['email'];
     phone = json['phone_number'];
-    type = json['type_name'];
-    gander = json['gander'];
     uId = json['uId'];
+    type = json['type_name'];
     image = json['image'];
+    imageID = json['imageID'];
+    gander = json['gander'];
     bio = json['bio'];
     cover = json['cover'];
-    isEmailVerified = json['isEmailVerified'];
+    isDoctorVerified = json['isDoctorVerified'];
   }
 
   Map<String, dynamic> toMap() {
@@ -45,13 +48,14 @@ class UserModel {
       'name': name,
       'email': email,
       'phone_number': phone,
-      'gander': gander,
       'type_name': type,
       'uId': uId,
+      'gander': gander,
       'image': image,
+      'imageID': imageID,
       'bio': bio,
       'cover': cover,
-      'isEmailVerified': isEmailVerified,
+      'isDoctorVerified': isDoctorVerified,
     };
   }
 }

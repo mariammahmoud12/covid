@@ -125,7 +125,7 @@ class _AddMedicineScreenState extends State<AddMedicineScreen> {
                           ),
                           value: value1,
                           items: items1.map(buildMenuItem).toList(),
-                          onChanged: (value) => setState(() => this.value1 = value),
+                          onChanged: (value) => setState(() => value1 = value),
                         ),
                       ),
                     ),
@@ -173,6 +173,7 @@ class _AddMedicineScreenState extends State<AddMedicineScreen> {
                                               if (formKey.currentState!.validate()) {
                                                 cubit.insertToDb(
                                                   name: NameController.text,
+                                                  everyDay: value1.toString(),
                                                   timesAday: value2.toString(),
                                                   time1: TimeController1.text,
                                                   time2: TimeController2.text,
@@ -272,6 +273,7 @@ class _AddMedicineScreenState extends State<AddMedicineScreen> {
                                               if (formKey.currentState!.validate()) {
                                                 cubit.insertToDb(
                                                   name: NameController.text,
+                                                  everyDay: value1.toString(),
                                                   timesAday: value2.toString(),
                                                   time1: TimeController1.text,
                                                   time2: TimeController2.text,
@@ -350,6 +352,7 @@ class _AddMedicineScreenState extends State<AddMedicineScreen> {
                                               if (formKey.currentState!.validate()) {
                                                 await cubit.insertToDb(
                                                   name: NameController.text,
+                                                  everyDay: value1.toString(),
                                                   timesAday: value2.toString(),
                                                   time1: TimeController1.text,
                                                   time2: '',

@@ -42,10 +42,24 @@ class MedicineReminderScreen extends StatelessWidget {
               ),
             ),
             ListView.separated(
-              itemBuilder: (context, index) => BuildMedItem(
-                  ReminderCubit.get(context).medicines[index] ,
-                  context ,
+              itemBuilder: (context, index) => Dismissible(
+                key: ValueKey(ReminderCubit.get(context).medicines[index]),
+                background: Container(
+                  color: Colors.red,
+                  child: const Center(
+                      child: Text(
+                    'DELETE',
+                    style: TextStyle(color: Colors.white, fontSize: 22),
+                  )),
+                ),
+                onDismissed: (DismissDirection direction) {
+                  ReminderCubit.get(context).deleteFromDB(ReminderCubit.get(context).medicines[index]['id']);
+                },
+                child: BuildMedItem(
+                  ReminderCubit.get(context).medicines[index],
+                  context,
                   index,
+                ),
               ),
               separatorBuilder: (context, index) => Padding(
                 padding: const EdgeInsetsDirectional.only(start: 20.0),

@@ -1,13 +1,29 @@
 
+import 'dart:async';
 import 'dart:ui';
 
 import 'package:covid19/modules/login_screen/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:covid19/shared/components/components.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+
+  @override
+  void initState() {
+
+    Timer(const Duration(seconds: 3), () {
+      navigator(context, LoginScreen());
+    });
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

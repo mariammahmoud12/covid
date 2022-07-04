@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sqflite/sqflite.dart';
 
-
 class UpdateMedicineScreen extends StatefulWidget {
-   UpdateMedicineScreen( {Key? key}) : super(key: key);
+  const UpdateMedicineScreen({Key? key, required this.medicine}) : super(key: key);
 
+  final Map medicine;
 
   @override
   State<UpdateMedicineScreen> createState() => _UpdateMedicineScreenState();
@@ -38,6 +38,17 @@ class _UpdateMedicineScreenState extends State<UpdateMedicineScreen> {
   var scaffoldKey = GlobalKey<ScaffoldState>();
 
   var formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    NameController.text = widget.medicine['name'];
+    value1 = widget.medicine['everyDay'];
+    value2 = widget.medicine['timesAday'];
+    TimeController1.text = widget.medicine['time1'];
+    TimeController2.text = widget.medicine['time2'];
+    TimeController3.text = widget.medicine['time3'];
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -162,7 +173,7 @@ class _UpdateMedicineScreenState extends State<UpdateMedicineScreen> {
                           value: value2,
                           items: items2.map(buildMenuItem).toList(),
                           onChanged: (value) => setState(
-                                () {
+                            () {
                               value2 = value;
                               if (value2.toString() == '3 times a day') {
                                 scaffoldKey.currentState?.showBottomSheet((context) => Container(
@@ -175,15 +186,20 @@ class _UpdateMedicineScreenState extends State<UpdateMedicineScreen> {
                                               'Done',
                                               style: TextStyle(color: DarkBlueColor, fontSize: 24.0),
                                             ),
-                                            onPressed: () {
+                                            onPressed: () async {
                                               if (formKey.currentState!.validate()) {
-                                                cubit.insertToDb(
+                                                await cubit.updateDB(
+                                                  id: widget.medicine['id'],
                                                   name: NameController.text,
+                                                  everyDay: value1.toString(),
                                                   timesAday: value2.toString(),
                                                   time1: TimeController1.text,
                                                   time2: TimeController2.text,
                                                   time3: TimeController3.text,
                                                 );
+                                                Navigator.pop(context);
+                                                Navigator.pop(context);
+                                                Navigator.pop(context);
                                               }
                                             },
                                           ),
@@ -263,8 +279,7 @@ class _UpdateMedicineScreenState extends State<UpdateMedicineScreen> {
                                             },
                                           ),
                                         ]))));
-                              }
-                              else if (value2.toString() == 'Twice daily') {
+                              } else if (value2.toString() == 'Twice daily') {
                                 scaffoldKey.currentState?.showBottomSheet((context) => Container(
                                     padding: const EdgeInsets.all(15.0),
                                     child: Form(
@@ -275,15 +290,21 @@ class _UpdateMedicineScreenState extends State<UpdateMedicineScreen> {
                                               'Done',
                                               style: TextStyle(color: DarkBlueColor, fontSize: 24.0),
                                             ),
-                                            onPressed: () {
+                                            onPressed: () async {
                                               if (formKey.currentState!.validate()) {
-                                                cubit.insertToDb(
+                                                await cubit.updateDB(
+                                                  id: widget.medicine['id'],
                                                   name: NameController.text,
+                                                  everyDay: value1.toString(),
                                                   timesAday: value2.toString(),
                                                   time1: TimeController1.text,
                                                   time2: TimeController2.text,
                                                   time3: ' ',
                                                 );
+
+                                                Navigator.pop(context);
+                                                Navigator.pop(context);
+                                                Navigator.pop(context);
                                               }
                                             },
                                           ),
@@ -338,10 +359,9 @@ class _UpdateMedicineScreenState extends State<UpdateMedicineScreen> {
                                             },
                                           ),
                                         ]))));
-                              }
-                              else {
+                              } else {
                                 scaffoldKey.currentState?.showBottomSheet(
-                                      (context) => Container(
+                                  (context) => Container(
                                     padding: const EdgeInsets.all(15.0),
                                     child: Form(
                                       key: formKey,
@@ -356,13 +376,19 @@ class _UpdateMedicineScreenState extends State<UpdateMedicineScreen> {
                                             ),
                                             onPressed: () async {
                                               if (formKey.currentState!.validate()) {
-                                                await cubit.insertToDb(
+                                                await cubit.updateDB(
+                                                  id: widget.medicine['id'],
                                                   name: NameController.text,
+                                                  everyDay: value1.toString(),
                                                   timesAday: value2.toString(),
                                                   time1: TimeController1.text,
                                                   time2: '',
                                                   time3: '',
                                                 );
+                                                print('dkasfkjsh');
+                                                Navigator.pop(context);
+                                                Navigator.pop(context);
+                                                Navigator.pop(context);
                                               }
                                             },
                                           ),
@@ -424,16 +450,16 @@ class _UpdateMedicineScreenState extends State<UpdateMedicineScreen> {
   }
 
   DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
-    value: item,
-    child: Text(
-      item,
-      style: TextStyle(fontSize: 20.0, color: Colors.grey[700]),
-    ),
-  );
+        value: item,
+        child: Text(
+          item,
+          style: TextStyle(fontSize: 20.0, color: Colors.grey[700]),
+        ),
+      );
 
-  Future<void> updateUser({required Database database, String? name, String? timesAday ,String? time1,String? time2,String? time3, required int id}) async {
-    await database.rawUpdate(
-        'UPDATE Users SET name = ?, timesAday = ?,time1 = ? , time2 =? , time3 = ? WHERE id = ?',
-        ["$name", "$timesAday", "$time1","$time2" ,"$time3","$id" ]);
+  Future<void> updateUser(
+      {required Database database, String? name, String? timesAday, String? time1, String? time2, String? time3, required int id}) async {
+    await database.rawUpdate('UPDATE Users SET name = ?, timesAday = ?,time1 = ? , time2 =? , time3 = ? WHERE id = ?',
+        ["$name", "$timesAday", "$time1", "$time2", "$time3", "$id"]);
   }
 }

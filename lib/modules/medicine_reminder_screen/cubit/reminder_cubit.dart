@@ -10,10 +10,12 @@ class ReminderCubit extends Cubit<ReminderStates> {
   late Database database;
   List<Map> medicines = [];
 
-  void createDB() {
-    openDatabase('medicine.db', version: 1, onCreate: (database, version) {
+  void createDB() async {
+    await openDatabase('reminders.db', version: 2, onCreate: (database, version) {
       print('Database Created');
-      database.execute('CREATE TABLE medicines(id INTEGER PRIMARY KEY, name TEXT , timesAday TEXT , time1 TEXT , time2 TEXT , time3 TEXT)').then((value) {
+      database
+          .execute('CREATE TABLE medicines(id INTEGER PRIMARY KEY, name TEXT , everyDay TEXT, timesAday TEXT , time1 TEXT , time2 TEXT , time3 TEXT)')
+          .then((value) {
         print('table created');
       }).catchError((error) {
         print('error when creating table is : ${error.toString()}');
@@ -22,18 +24,20 @@ class ReminderCubit extends Cubit<ReminderStates> {
       print('Database opened');
     }).then((value) {
       database = value;
-      getDataFromDB(database).then((value) {
-        medicines = value;
-        print(medicines);
-
-        emit(ReminderGetFromDB());
-      });
       emit(ReminderCreateDB());
+    });
+
+    getDataFromDB(database).then((value) {
+      medicines = value;
+      print(medicines);
+
+      emit(ReminderGetFromDB());
     });
   }
 
   Future<void> insertToDb({
     required String name,
+    required String everyDay,
     required String timesAday,
     required String time1,
     String? time2,
@@ -41,7 +45,8 @@ class ReminderCubit extends Cubit<ReminderStates> {
   }) async {
     await database.transaction((txn) {
       return txn
-          .rawInsert('INSERT INTO medicines (name ,timesAday , time1 , time2 , time3 ) VALUES("$name" , "$timesAday" , "$time1" , "$time2" , "$time3")')
+          .rawInsert(
+              'INSERT INTO medicines (name , everyDay, timesAday , time1 , time2 , time3 ) VALUES("$name" , "$everyDay", "$timesAday" , "$time1" , "$time2" , "$time3")')
           .then((value) {
         print('$value inserted successfully');
 
@@ -63,25 +68,41 @@ class ReminderCubit extends Cubit<ReminderStates> {
     return await database.rawQuery('SELECT * FROM medicines');
   }
 
-  Future<void> updateDB ({
+  Future<void> updateDB({
     required int id,
     required String name,
+    required String everyDay,
     required String timesAday,
     required String time1,
     String? time2,
     String? time3,
-}) async
-  {
-    await database.rawUpdate(
-        'UPDATE medicines SET name = ? , timesAday =? , time1 = ? , time2 =? , time3 =? WHERE id = ?',
-        [name, timesAday, time1 , time2 , time3 , id]).then((value)
-    {
-      getDataFromDB(database);
+  }) async {
+    await database.rawUpdate('UPDATE medicines SET name = ? , everyDay = ?, timesAday =? , time1 = ? , time2 =? , time3 =? WHERE id = ?',
+        [name, everyDay, timesAday, time1, time2, time3, id]).then((value) {
+      print('valueee$value');
+      getDataFromDB(database).then((value) {
+        medicines = value;
+        print(medicines);
+
+        emit(ReminderGetFromDB());
+      });
       emit(ReminderUpdateDB());
     });
   }
 
+  Future<void> deleteFromDB(int id) async {
+    await database.rawDelete('DELETE FROM medicines WHERE id = ?', [id]).then((value) {
+      getDataFromDB(database).then((value) {
+        medicines = value;
+        print(medicines);
+
+        emit(ReminderGetFromDB());
+      });
+    });
+  }
+
   bool isBottomSheetShown = false;
+
   //IconData FABIcon = Icons.edit;
 
   void ChangeBottomSheetState({

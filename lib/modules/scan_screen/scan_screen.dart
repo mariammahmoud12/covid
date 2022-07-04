@@ -17,7 +17,7 @@ class _ScanScreenState extends State<ScanScreen> {
 
   @override
   void initState() {
-    AppCubit.get(context).profileImage = null;
+    AppCubit.get(context).imageScan = null;
     AppCubit.get(context).scanResult = null;
 
     super.initState();
@@ -74,7 +74,7 @@ class _ScanScreenState extends State<ScanScreen> {
                     padding: const EdgeInsets.all(40),
                     color: TealColor,
                     dashPattern: const [8, 8],
-                    child: AppCubit.get(context).profileImage == null
+                    child: AppCubit.get(context).imageScan == null
                         ? ClipRRect(
                             borderRadius: const BorderRadius.all(Radius.circular(12)),
                             child: SizedBox(
@@ -121,7 +121,7 @@ class _ScanScreenState extends State<ScanScreen> {
                             child: Image(
                               width: 75,
                               height: 75,
-                              image: FileImage(AppCubit.get(context).profileImage!),
+                              image: FileImage(AppCubit.get(context).imageScan!),
                               fit: BoxFit.cover,
                             ),
                           ),
